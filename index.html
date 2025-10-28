@@ -1,206 +1,329 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lokesh Kumar R | Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lokesh Kumar R — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: #0f172a;
-      color: #f1f5f9;
+    :root{
+      --bg1:#0f172a; --bg2:#0b1220; --accent:#7c3aed; --muted:#94a3b8; --card:#0b1226;
+      --glass: rgba(255,255,255,0.04);
     }
-    header {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      text-align: center;
-      padding: 40px 20px;
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(135deg,var(--bg1),var(--bg2));-webkit-font-smoothing:antialiased}
+
+    /* animated gradient background */
+    .bg-animated{position:fixed;inset:0;z-index:-2;overflow:hidden}
+    .blob{position:absolute;border-radius:50%;filter:blur(64px);opacity:0.6;animation:move 15s ease-in-out infinite}
+    .b1{width:520px;height:520px;background:radial-gradient(circle at 30% 30%, #2dd4bf,transparent 40%);left:-120px;top:-60px}
+    .b2{width:420px;height:420px;background:radial-gradient(circle at 20% 30%, #7c3aed,transparent 40%);right:-80px;bottom:-80px;animation-duration:18s}
+    .b3{width:320px;height:320px;background:radial-gradient(circle at 30% 30%, #60a5fa,transparent 40%);left:20%;bottom:-100px;animation-duration:22s}
+    @keyframes move{0%{transform:translateY(0) scale(1)}50%{transform:translateY(40px) scale(1.05)}100%{transform:translateY(0) scale(1)}}
+
+    /* container */
+    .container{max-width:1100px;margin:48px auto;padding:32px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .brand{font-weight:800;letter-spacing:0.6px}
+    nav a{color:var(--muted);margin-left:14px;text-decoration:none;font-weight:600}
+    nav a:hover{color:#fff}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:360px 1fr;gap:28px;margin-top:24px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:24px;box-shadow:0 6px 30px rgba(2,6,23,0.6);backdrop-filter: blur(6px)}
+
+    .profile-photo{width:140px;height:140px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,255,255,0.06);display:block;margin-bottom:12px}
+    .profile-photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .6s cubic-bezier(.2,.9,.3,1)}
+    .profile-photo:hover img{transform:scale(1.06) rotate(-2deg)}
+
+    .name{font-size:22px;font-weight:800}
+    .role{color:var(--muted);margin-top:6px}
+    .contact{margin-top:14px;font-size:14px;color:var(--muted)}
+
+    .actions{display:flex;gap:12px;margin-top:18px}
+    .btn{padding:10px 16px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;box-shadow:0 8px 30px rgba(124,58,237,0.14);transition:transform .18s}
+    .btn-primary:active{transform:scale(.98)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbeafe}
+
+    /* typing effect */
+    .typing{font-weight:700;color:#f8fafc;margin-top:8px}
+    .typing span{color:var(--accent)}
+
+    /* stats */
+    .stats{display:flex;gap:10px;margin-top:16px}
+    .stat{background:var(--glass);padding:10px;border-radius:10px;min-width:110px;text-align:center}
+    .stat strong{display:block;font-size:18px}
+
+    /* main columns */
+    .main{display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:26px}
+    .section{margin-bottom:20px}
+    h2.section-title{font-size:18px;margin:0 0 12px 0}
+
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 10px;border-radius:999px;font-weight:600}
+
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));margin-bottom:10px;transition:transform .25s, box-shadow .25s;cursor:pointer}
+    .project:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(2,6,23,0.5)}
+    .proj-title{display:flex;justify-content:space-between;align-items:center}
+
+    /* timeline */
+    .timeline{border-left:2px dashed rgba(255,255,255,0.04);padding-left:16px}
+    .tl-item{position:relative;padding:12px 0}
+    .tl-item:before{content:'';position:absolute;left:-9px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(124,58,237,0.08)}
+
+    /* footer / contact form */
+    footer{margin-top:26px;color:var(--muted);text-align:center}
+
+    /* responsiveness */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr;}
+      .main{grid-template-columns:1fr}
+      nav{display:none}
     }
-    header img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 4px solid #38bdf8;
-      object-fit: cover;
-    }
-    header h1 {
-      margin: 15px 0 5px;
-      color: #38bdf8;
-    }
-    header p {
-      margin: 5px 0;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #1e293b;
-      padding: 10px;
-    }
-    nav a {
-      color: #f1f5f9;
-      margin: 8px;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-    nav a:hover {
-      background: #38bdf8;
-      color: #0f172a;
-    }
-    section {
-      padding: 40px 10%;
-    }
-    h2 {
-      margin-bottom: 20px;
-      color: #38bdf8;
-      border-bottom: 2px solid #38bdf8;
-      display: inline-block;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 20px rgba(56,189,248,0.3);
-    }
-    .progress {
-      background: #334155;
-      border-radius: 8px;
-      overflow: hidden;
-      height: 10px;
-      margin-top: 5px;
-    }
-    .progress div {
-      height: 100%;
-      background: #38bdf8;
-    }
+
+    /* small animated icons */
+    .float-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.45);transform:translateY(0);animation:float 4s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
   </style>
 </head>
 <body>
+  <div class="bg-animated" aria-hidden>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
 
-  <!-- Header -->
-  <header>
-    <img src="Lokesh.png" alt="Lokesh Kumar" />
-    <h1>Lokesh Kumar R</h1>
-    <p>Embedded Systems | IoT | Electronics Engineer</p>
-    <p><i class="fa fa-envelope"></i> nrml1811@gmail.com | <i class="fa fa-phone"></i> +91 99524 30751</p>
-    <p>
-      <a href="https://www.linkedin.com/in/lokesh-kumar-8964291bb/" target="_blank"><i class="fab fa-linkedin"></i></a> &nbsp;
-      <a href="https://github.com/Lokeshnrm" target="_blank"><i class="fab fa-github"></i></a>
-    </p>
-  </header>
-
-  <!-- Navigation -->
-  <nav>
-    <a href="#about">About</a>
-    <a href="#education">Education</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#internships">Internships</a>
-    <a href="#courses">Courses</a>
-    <a href="#publications">Publications</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>To work in a challenging environment that offers me opportunities to utilize my skills and contribute with full dedication for the growth of the organization.</p>
-  </section>
-
-  <!-- Education -->
-  <section id="education">
-    <h2>Education</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>K. S. Rangasamy College of Technology</h3>
-        <p>B.E. in ECE (2020–2024) | CGPA: 8.29</p>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;color:white;font-weight:800">LK</div>
+        <div>
+          <div class="brand">Lokesh Kumar R</div>
+          <div style="font-size:12px;color:var(--muted)">Embedded Software | IoT | PCB | Robotics</div>
+        </div>
       </div>
-      <div class="card">
-        <h3>Bharathi Matric Hr. Sec. School</h3>
-        <p>HSC – 70% (2020)</p>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <aside class="card">
+        <div class="profile-photo">
+          <!-- Replace 'profile.jpg' with your real photo file in the same folder or a hosted URL -->
+          <img src="profile.jpg" alt="Lokesh Kumar R">
+        </div>
+        <div class="name">Lokesh Kumar R</div>
+        <div class="role">Bachelor's in Electronics & Communications Engineering (2024)</div>
+        <div class="typing">Career objective — <span>To work in a challenging environment that allows me to utilize my skills and contribute with dedication to the growth of the organization.</span></div>
+
+        <div class="contact">
+          <div style="margin-top:12px">No.100, Murungai Thottam, Lakshmi Theatre Main Road, Gandhinagar (PO), Samundapuram, Tiruppur (Dt) - 641603</div>
+          <div style="margin-top:8px">Phone: +91-9952430751</div>
+          <div>Email: <a href="mailto:nrml1811@gmail.com" style="color:var(--accent);text-decoration:none">nrml1811@gmail.com</a></div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://drive.google.com/file/d/1HNPUw9hd516P-LV7o8yTGieqWL1gVLks/view?usp=drive_link" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/lokesh-kumar-8964291bb/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/Lokeshnrm/Lokeshnrm/edit/main/README.md" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <div class="stats" aria-hidden>
+          <div class="stat"><strong>4 yrs</strong><small style="color:var(--muted)">Project Experience</small></div>
+          <div class="stat"><strong>8.56</strong><small style="color:var(--muted)">CGPA</small></div>
+          <div class="stat"><strong>Embedded</strong><small style="color:var(--muted)">Systems & IoT</small></div>
+        </div>
+      </aside>
+
+      <div>
+        <div class="card float-card" style="justify-content:space-between">
+          <div>
+            <div style="font-weight:800">Hi — I'm Lokesh</div>
+            <div style="color:var(--muted);font-size:14px;margin-top:6px">Embedded developer, robotics & IoT enthusiast. I design PCBs, firmware, and end-to-end systems that solve real-world problems.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <small style="color:var(--muted)">Profile links</small>
+            <div style="display:flex;gap:8px">
+              <a href="https://www.linkedin.com/in/lokesh-kumar-8964291bb/" target="_blank" rel="noopener" style="text-decoration:none;color:var(--muted)">LinkedIn</a>
+              <a href="https://github.com/Lokeshnrm/Lokeshnrm/edit/main/README.md" target="_blank" rel="noopener" style="text-decoration:none;color:var(--muted)">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="about">
+          <h2 class="section-title">Summary</h2>
+          <p style="color:var(--muted);line-height:1.55">Embedded software engineer with strong hands-on experience in microcontrollers (ATMega328P, LPC1768), PCB design (Altium, EasyEDA, KiCad), firmware in Embedded C, and IoT systems using ESP32 and Raspberry Pi. Skilled in full product flow — from hardware design and firmware to testing and deployment. Passionate about robotics, UAVs, and accessible assistive devices.</p>
+        </div>
+
+        <div class="section" id="projects">
+          <h2 class="section-title">Project highlights</h2>
+
+          <div class="project" title="Click for details">
+            <div class="proj-title"><div><strong>100W Inverter</strong><div style="color:var(--muted);font-size:13px">Designed in Altium Designer</div></div><div>Power electronics</div></div>
+            <p style="color:var(--muted);margin-top:8px">A compact 100W inverter converting battery DC into stable AC for small electronics. Implemented efficient switching and protective circuitry.</p>
+          </div>
+
+          <div class="project">
+            <div class="proj-title"><div><strong>Electronic Eye Security System</strong><div style="color:var(--muted);font-size:13px">Designed in Altium Designer</div></div><div>Security</div></div>
+            <p style="color:var(--muted);margin-top:8px">Security system using LDR sensors for intrusion detection with piezo buzzer alerts and real-time monitoring features.</p>
+          </div>
+
+          <div class="project">
+            <div class="proj-title"><div><strong>Crowbar Over-voltage Protection</strong><div style="color:var(--muted);font-size:13px">Designed in EasyEDA</div></div><div>Power protection</div></div>
+            <p style="color:var(--muted);margin-top:8px">Fast-acting crowbar circuit to protect electronics from damaging overvoltage events.</p>
+          </div>
+
+          <div class="project">
+            <div class="proj-title"><div><strong>Security Rover (ESP32-CAM)</strong><div style="color:var(--muted);font-size:13px">Robotics & Surveillance</div></div><div>Camera Rover</div></div>
+            <p style="color:var(--muted);margin-top:8px">Remote-controlled rover with real-time video streaming using an ESP32-CAM module over Wi‑Fi.</p>
+          </div>
+
+          <div class="project">
+            <div class="proj-title"><div><strong>Autopilot Agricultural UAV (Concept)</strong><div style="color:var(--muted);font-size:13px">UAV & Precision Ag</div></div><div>Drone</div></div>
+            <p style="color:var(--muted);margin-top:8px">Conceptual design and demonstrations for crop monitoring and data collection using UAV technology.</p>
+          </div>
+
+          <div style="margin-top:10px"><a class="btn btn-ghost" href="https://drive.google.com/drive/folders/1p8UGDgQnIa37pm0vnQ18m5RVc8gAglov?usp=share_link" target="_blank" rel="noopener">Open project folder</a></div>
+        </div>
+
+        <div class="section" id="education">
+          <h2 class="section-title">Education</h2>
+          <div class="timeline">
+            <div class="tl-item">
+              <strong>K. S. Rangasamy College of Technology (Autonomous), Namakkal</strong>
+              <div style="color:var(--muted)">Bachelor's Degree, Electronics & Communications Engineering — May 2024 | CGPA: 8.56</div>
+            </div>
+            <div class="tl-item">
+              <strong>Bharathi Matric Higher Secondary School, Erode</strong>
+              <div style="color:var(--muted)">HSC — March 2020 | 70%</div>
+            </div>
+            <div class="tl-item">
+              <strong>Jai Sharadha Matric Higher Secondary School, Tiruppur</strong>
+              <div style="color:var(--muted)">SSLC — 2018 | 81%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">Internships & Trainings</h2>
+          <ul style="color:var(--muted);margin:0;padding-left:18px">
+            <li>Electrical Engineering — Reude Technologies, Chennai (Sep 2023 — Dec 2023)</li>
+            <li>Campus Ambassador — Techfest, IIT Bombay (Jun 2021 — Jul 2022)</li>
+            <li>Celonis (Remote) — Aug 2021 — Oct 2021</li>
+            <li>SkillTern — July 2021 — Mar 2022</li>
+          </ul>
+        </div>
+
       </div>
-      <div class="card">
-        <h3>Jai Sharadha Matric Hr. Sec. School</h3>
-        <p>SSLC – 81% (2018)</p>
+    </section>
+
+    <div class="main">
+      <div>
+        <div class="card section">
+          <h2 class="section-title">Skills</h2>
+          <div class="chips" style="margin-top:8px">
+            <div class="chip">Embedded C</div>
+            <div class="chip">C / C++</div>
+            <div class="chip">Java</div>
+            <div class="chip">Python</div>
+            <div class="chip">ARM / ATMega / LPC</div>
+            <div class="chip">PCB Design</div>
+            <div class="chip">Altium / KiCad / EasyEDA</div>
+            <div class="chip">ESP32 / Raspberry Pi</div>
+            <div class="chip">Linux</div>
+            <div class="chip">SQL</div>
+            <div class="chip">Spring Boot</div>
+            <div class="chip">IoT Systems</div>
+          </div>
+        </div>
+
+        <div class="card section">
+          <h2 class="section-title">Co-curricular & Leadership</h2>
+          <ul style="color:var(--muted);margin:0;padding-left:18px">
+            <li>Student Coordinator, Entrepreneurship Development Cell — KSR College</li>
+            <li>Student Co-Convener, Institution’s Innovation Council</li>
+            <li>Student President, Institution’s Innovation Council</li>
+            <li>Conducted webinars & workshops on Innovation, PCB design, and AI topics</li>
+          </ul>
+        </div>
+
+        <div class="card section">
+          <h2 class="section-title">Publications & Presentations</h2>
+          <p style="color:var(--muted);margin:0">"Garbage Collection & Segregation using Computer Vision" — Published in IEEE Xplore (DOI: 10.1109/ICICT60155.2024.10544861)</p>
+        </div>
       </div>
+
+      <aside>
+        <div class="card section" id="contact">
+          <h2 class="section-title">Contact & Personal</h2>
+          <p style="color:var(--muted)"><strong>Date of birth:</strong> 19/11/2002 (Age: 22)</p>
+          <p style="color:var(--muted)"><strong>Languages:</strong> English, Tamil</p>
+          <p style="color:var(--muted)"><strong>Hobbies:</strong> Cycling, Listening to music</p>
+          <div style="margin-top:12px">
+            <a class="btn btn-primary" href="mailto:nrml1811@gmail.com">Email me</a>
+          </div>
+        </div>
+
+        <div class="card section">
+          <h2 class="section-title">Tools & Design</h2>
+          <div class="chips" style="margin-top:8px">
+            <div class="chip">AutoCAD</div>
+            <div class="chip">Altium Designer</div>
+            <div class="chip">Fusion 360</div>
+            <div class="chip">Photoshop / Photopea</div>
+            <div class="chip">Figma</div>
+            <div class="chip">Multisim / Proteus</div>
+          </div>
+        </div>
+
+        <div class="card section">
+          <h2 class="section-title">Selected Workshops</h2>
+          <div style="color:var(--muted);font-size:14px">
+            Graphic Design using Photoshop — May 09, 2022<br>
+            Printed Circuit Board — Mar 07, 2023<br>
+            Cybersecurity & Cyberthreats — Dec 26, 2022
+          </div>
+        </div>
+      </aside>
     </div>
-  </section>
 
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div><strong>C Programming</strong><div class="progress"><div style="width:90%"></div></div></div>
-    <div><strong>Embedded Systems</strong><div class="progress"><div style="width:85%"></div></div></div>
-    <div><strong>IoT</strong><div class="progress"><div style="width:80%"></div></div></div>
-    <div><strong>Linux</strong><div class="progress"><div style="width:75%"></div></div></div>
-    <div><strong>PCB Design</strong><div class="progress"><div style="width:70%"></div></div></div>
-    <div><strong>C++</strong><div class="progress"><div style="width:70%"></div></div></div>
-    <div><strong>Python</strong><div class="progress"><div style="width:65%"></div></div></div>
-  </section>
+    <footer>
+      <div style="margin-top:18px;color:var(--muted)">Want this as a PDF or hosted site? Save this HTML, add your profile image (profile.jpg) and open the file in browser. Replace any content you wish.</div>
+      <div style="margin-top:8px;color:var(--muted)">© Lokesh Kumar R — Created with ❤️</div>
+    </footer>
+  </div>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="card">
-      <h3>All College Projects</h3>
-      <p>This folder contains all the projects I worked on during my college days (major & minor).</p>
-      <a href="https://drive.google.com/drive/folders/1p8UGDgQnIa37pm0vnQ18m5RVc8gAglov?usp=share_link" target="_blank">View All Projects</a>
-    </div>
-  </section>
+  <script>
+    // small interactive touches
+    // typing animation for career objective
+    (function(){
+      const el = document.querySelector('.typing span');
+      const full = el.textContent;
+      el.textContent = '';
+      let i=0;
+      function type(){
+        if(i<full.length){ el.textContent += full.charAt(i++); setTimeout(type,18 + Math.random()*20);
+        }
+      }
+      type();
+    })();
 
-  <!-- Internships -->
-  <section id="internships">
-    <h2>Internships</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>WordPress Development</h3>
-        <p>Statix.pro, Namakkal (Jun–Jul 2023)</p>
-      </div>
-      <div class="card">
-        <h3>Electrical Engineering</h3>
-        <p>Reude Technologies, Chennai (Sep–Dec 2023)</p>
-      </div>
-    </div>
-  </section>
+    // smooth section link scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault(); const id = a.getAttribute('href'); document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    });
 
-  <!-- Courses -->
-  <section id="courses">
-    <h2>Value Added Courses</h2>
-    <p>Master's in Embedded Systems with AI & ML - ISM UNIV, Bangalore</p>
-  </section>
-
-  <!-- Publications -->
-  <section id="publications">
-    <h2>Publications & Activities</h2>
-    <div class="card">
-      <h3>Garbage Collection & Segregation using Computer Vision</h3>
-      <p>Published in IEEE Xplore</p>
-      <a href="https://ieeexplore.ieee.org/document/10544861" target="_blank">View Paper</a>
-    </div>
-    <p><b>Paper Presentation:</b> "Pick & Place Robot" – Sahyadri College of Engineering (2022)</p>
-    <p><b>Workshop:</b> IoT, AI & ML Systems – AICTE ATAL Academy (2022)</p>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p><i class="fa fa-map-marker-alt"></i> No.100, Murungai Thottam, Lakshmi Theatre Road, Samundipuram, Tiruppur - 641603.</p>
-    <p><i class="fa fa-envelope"></i> nrml1811@gmail.com</p>
-    <p><i class="fa fa-phone"></i> +91 99524 30751</p>
-  </section>
-
+  </script>
 </body>
 </html>
-
